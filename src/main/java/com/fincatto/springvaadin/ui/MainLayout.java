@@ -1,7 +1,9 @@
 package com.fincatto.springvaadin.ui;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,7 +18,7 @@ import com.vaadin.flow.server.PageConfigurator;
 //@Theme(Lumo.class)
 //@HtmlImport("frontend://styles/shared-styles.html")
 //@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-public class UIMain extends VerticalLayout implements RouterLayout, PageConfigurator {
+public class MainLayout extends VerticalLayout implements RouterLayout, PageConfigurator {
     //public class UIMain extends VerticalLayout {
 
     private TextField textFieldPesquisa = new TextField();
@@ -25,13 +27,17 @@ public class UIMain extends VerticalLayout implements RouterLayout, PageConfigur
     public void configurePage(InitialPageSettings initialPageSettings) {
     }
 
-    public UIMain() {
-        final Button button = new Button("Vai malandra!");
-        button.addClickListener(e -> e.getSource().setText("Foi!"));
+    public MainLayout() {
+        final Dialog dialog = new Dialog();
+        dialog.add(new PessoaFormLayout(dialog));
+
+        final Button button = new Button("Abracadabra!");
+        button.addClickListener(e -> dialog.open());
 
         final Button clearFilterTextBtn = new Button(new Icon(VaadinIcon.CLOSE_CIRCLE));
         clearFilterTextBtn.addClickListener(e -> textFieldPesquisa.clear());
 
+        textFieldPesquisa.setAutofocus(true);
         textFieldPesquisa.setValue("Aqui jas");
         textFieldPesquisa.setLabel("Text:");
         textFieldPesquisa.setPlaceholder("Filter by name...");
