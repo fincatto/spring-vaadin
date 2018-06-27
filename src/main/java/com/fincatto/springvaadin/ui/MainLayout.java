@@ -3,7 +3,6 @@ package com.fincatto.springvaadin.ui;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -11,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.InitialPageSettings;
 import com.vaadin.flow.server.PageConfigurator;
 
@@ -58,8 +58,11 @@ public class MainLayout extends VerticalLayout implements RouterLayout, PageConf
         nameLayout.add(titleField, firstNameField, lastNameField);
         nameLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("21em", 2), new FormLayout.ResponsiveStep("22em", 3));
 
+        //link para segunda pagina
+        RouterLink routerLink = new RouterLink("Pagina 1", PaginaDoisLayout.class);
+
         //adiciona os componentes na pagina
-        final VerticalLayout verticalLayout = new VerticalLayout(button, clearFilterTextBtn, textFieldPesquisa, nameLayout);
+        final VerticalLayout verticalLayout = new VerticalLayout(button, clearFilterTextBtn, textFieldPesquisa, nameLayout, routerLink);
         verticalLayout.setSizeFull();
         this.add(verticalLayout);
     }
