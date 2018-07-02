@@ -9,8 +9,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 
-class PessoaFormLayout extends VerticalLayout {
-    PessoaFormLayout(final Dialog dialog) {
+class PersonForm extends VerticalLayout {
+    PersonForm(final Dialog dialog) {
         final H3 header = new H3("Pessoa");
 
         final TextField titleField = new TextField();
@@ -30,18 +30,15 @@ class PessoaFormLayout extends VerticalLayout {
         formLayout.add(titleField, firstNameField, lastNameField);
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("21em", 2), new FormLayout.ResponsiveStep("22em", 3));
 
-        final Notification notification = new Notification("Confirma saida?", 3000);
-
         final Button botaoSalvar = new Button("Salvar");
         botaoSalvar.getElement().getThemeList().add("primary");
         botaoSalvar.addClickListener(e -> dialog.close());
 
         final Button botaoCancelar = new Button("Cancelar");
         botaoCancelar.getElement().getThemeList().add("error");
-        botaoCancelar.addClickListener(e -> notification.open());
+        botaoCancelar.addClickListener(e -> dialog.close());
 
         final HorizontalLayout botoesLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
-
         this.add(header, formLayout, botoesLayout);
     }
 }
