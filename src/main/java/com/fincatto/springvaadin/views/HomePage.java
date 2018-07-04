@@ -1,18 +1,19 @@
-package com.fincatto.springvaadin.ui;
+package com.fincatto.springvaadin.views;
 
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @Route(value = "", layout = TemplateColunasLayout.class)
-public class HomePage extends Composite<Div> {
+public class HomePage extends Composite<VerticalLayout> {
 
     public HomePage() {
         final TextField titleField = new TextField();
         titleField.setLabel("Title");
         titleField.setPlaceholder("Sir");
+        titleField.focus();
 
         final TextField firstNameField = new TextField();
         firstNameField.setLabel("First name");

@@ -3,7 +3,7 @@ package com.fincatto.springvaadin.classes;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Pessoa implements Serializable {
+public class User implements Serializable {
     private long id;
     private String nome, email;
 
@@ -11,7 +11,7 @@ public class Pessoa implements Serializable {
         return id;
     }
 
-    public Pessoa setId(long id) {
+    public User setId(long id) {
         this.id = id;
         return this;
     }
@@ -20,7 +20,7 @@ public class Pessoa implements Serializable {
         return nome;
     }
 
-    public Pessoa setNome(String nome) {
+    public User setNome(String nome) {
         this.nome = nome;
         return this;
     }
@@ -29,7 +29,7 @@ public class Pessoa implements Serializable {
         return email;
     }
 
-    public Pessoa setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -38,8 +38,8 @@ public class Pessoa implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return id == pessoa.id;
+        User user = (User) o;
+        return id == user.id;
     }
 
     @Override
@@ -49,6 +49,6 @@ public class Pessoa implements Serializable {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome='" + nome + '\'' + ", email='" + email + '\'' + '}';
+        return "User{" + "id=" + id + ", nome='" + nome + '\'' + ", email='" + email + '\'' + '}';
     }
 }
