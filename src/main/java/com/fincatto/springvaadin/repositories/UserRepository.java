@@ -31,7 +31,6 @@ public class UserRepository implements Loggable {
     }
 
     public int count() {
-        getLogger().debug("Contando...");
         return MAX_ITENS;
     }
 }
