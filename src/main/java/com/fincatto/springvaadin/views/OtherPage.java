@@ -32,14 +32,20 @@ public class OtherPage extends Composite<VerticalLayout> implements Loggable  {
         final Dialog dialog = new Dialog();
         dialog.add(new PersonForm(dialog));
         final Button botaoNovo = new Button("Novo usuário", e -> dialog.open());
+        botaoNovo.addClassName("botao_primario");
 
-        final Button botaoExcluir = new Button("Excluir usuário", e -> grid.getSelectedItems().forEach(user -> getLogger().debug("Excluindo {}...", user.getId())));
-        botaoExcluir.addClassName("danger");
+        final Button botaoExcluir = new Button("Excluir", e -> grid.getSelectedItems().forEach(user -> getLogger().debug("Excluindo {}...", user.getId())));
+        botaoExcluir.addClassName("botao_vermelho");
         botaoExcluir.setVisible(false);
 
-        final HorizontalLayout botoes = new HorizontalLayout(botaoNovo, botaoExcluir);
+        final Button botaoInativar = new Button("Inativar", e -> grid.getSelectedItems().forEach(user -> getLogger().debug("Inativando {}...", user.getId())));
+        botaoInativar.addClassName("botao_amarelo");
+        botaoInativar.setVisible(false);
+
+        final HorizontalLayout botoes = new HorizontalLayout(botaoNovo, botaoExcluir, botaoInativar);
         this.getContent().add(grid, botoes);
 
         grid.addSelectionListener(sl -> botaoExcluir.setVisible(!grid.getSelectedItems().isEmpty()));
+        grid.addSelectionListener(sl -> botaoInativar.setVisible(!grid.getSelectedItems().isEmpty()));
     }
 }
