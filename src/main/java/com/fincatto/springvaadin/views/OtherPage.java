@@ -19,10 +19,11 @@ public class OtherPage extends Composite<VerticalLayout> implements Loggable {
     @Autowired
     public OtherPage(UserRepository userRepository) {
         final Grid<User> grid = new Grid<>();
-        grid.addColumn(User::getId).setHeader("ID");
-        grid.addColumn(User::getNome).setHeader("Nome");
+        //grid.addColumn(User::getId).setHeader("ID").setWidth("40px").setFlexGrow(0);
+        grid.addColumn(User::getNome).setHeader("Nome").setWidth("100px").setFlexGrow(0);
         grid.addColumn(User::getEmail).setHeader("Email");
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
+        grid.setColumnReorderingAllowed(true);
         grid.setMultiSort(true);
         grid.setPageSize(30);
         //grid.setItems(userRepository.findAll());
@@ -41,10 +42,11 @@ public class OtherPage extends Composite<VerticalLayout> implements Loggable {
         botaoInativar.addClassName("botao_amarelo");
         botaoInativar.setVisible(false);
 
-        final HorizontalLayout botoes = new HorizontalLayout(botaoNovo, botaoExcluir, botaoInativar);
-        this.getContent().add(grid, botoes);
-
         grid.addSelectionListener(sl -> botaoExcluir.setVisible(!grid.getSelectedItems().isEmpty()));
         grid.addSelectionListener(sl -> botaoInativar.setVisible(!grid.getSelectedItems().isEmpty()));
+
+        final HorizontalLayout botoes = new HorizontalLayout(botaoNovo, botaoExcluir, botaoInativar);
+        this.getContent().add(grid, botoes);
+        this.getContent().setSizeFull();
     }
 }
