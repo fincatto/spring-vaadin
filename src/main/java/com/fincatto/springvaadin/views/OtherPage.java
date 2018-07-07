@@ -22,7 +22,7 @@ public class OtherPage extends Composite<VerticalLayout> {
         grid.addColumn(User::getNome).setHeader("Nome");
         grid.addColumn(User::getEmail).setHeader("Email");
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
-        //grid.setPageSize(10);
+        grid.setPageSize(30);
         //grid.setMultiSort(true);
         //grid.setDataProvider(DataProvider.fromCallbacks(query -> IntStream.range(query.getOffset(),query.getOffset() + query.getLimit()).mapToObj(index -> createPerson(index + 1, random)),query -> 100 * 1000 * 1000));
         grid.setDataProvider(DataProvider.fromCallbacks(q -> userRepository.findByOffset(q.getOffset(), q.getLimit()).stream(), q -> userRepository.count()));
