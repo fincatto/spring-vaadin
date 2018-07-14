@@ -55,9 +55,11 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
             } else if (event.getOldValue() == null) {
                 getLogger().debug("Setando novo usuario selecionado: {}", event.getValue().getNome());
                 VaadinService.getCurrentRequest().setAttribute("selectedUser", event.getValue());
+                getUI().ifPresent(ui -> ui.navigate(HomePage.class));
             } else {
                 VaadinService.getCurrentRequest().setAttribute("selectedUser", event.getValue());
                 getLogger().debug("Trocando usuario {} por: {}", event.getOldValue().getNome(), event.getValue().getNome());
+                getUI().ifPresent(ui -> ui.navigate(HomePage.class));
             }
         });
         menuDireita.add(comboBox);
