@@ -11,9 +11,9 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinService;
 
 public class TopoComponent extends HorizontalLayout implements Loggable {
 
@@ -44,13 +44,22 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
 
         final ComboBox<User> comboBox = new ComboBox<>();
         comboBox.setPreventInvalidInput(true);
-        comboBox.setItemLabelGenerator(User::getNome);
-        comboBox.setRenderer(TemplateRenderer.<User> of(
-                "<div>[[item.nome]]<br><small>[[item.email]]</small></div>")
-                .withProperty("nome", User::getNome)
-                .withProperty("email", User::getEmail));
-        //comboBox.setDataProvider(DataProvider.fromFilteringCallbacks(query -> userRepository.findByName(query.getFilter().toString()).stream(), query -> userRepository.findByName(query.getFilter().toString()).size()));
         comboBox.setItems(userRepository.findAll());
+        //comboBox.setDataProvider(DataProvider.fromFilteringCallbacks(query -> userRepository.findByName(query.getFilter().toString()).stream(), query -> userRepository.findByName(query.getFilter().toString()).size()));
+        comboBox.setItemLabelGenerator(User::getNome);
+        comboBox.setRenderer(TemplateRenderer.<User>of("<div>[[item.nome]]<br><small>[[item.email]]</small></div>").withProperty("nome", User::getNome).withProperty("email", User::getEmail));
+        comboBox.addValueChangeListener(event -> {
+            if (event.getSource().isEmpty()) {
+                VaadinService.getCurrentRequest().removeAttribute("selectedUser");
+                getLogger().debug("Removendo usuario selecionado...");
+            } else if (event.getOldValue() == null) {
+                getLogger().debug("Setando novo usuario selecionado: {}", event.getValue().getNome());
+                VaadinService.getCurrentRequest().setAttribute("selectedUser", event.getValue());
+            } else {
+                VaadinService.getCurrentRequest().setAttribute("selectedUser", event.getValue());
+                getLogger().debug("Trocando usuario {} por: {}", event.getOldValue().getNome(), event.getValue().getNome());
+            }
+        });
         menuDireita.add(comboBox);
 
         this.add(menuEsquerda, menuDireita);
