@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UsersPage extends Composite<VerticalLayout> implements Loggable {
 
     @Autowired
-    public UsersPage(UserRepository userRepository) {
+    public UsersPage(final UserRepository userRepository) {
         final Grid<User> grid = new Grid<>();
         //grid.addColumn(User::getId).setHeader("ID").setWidth("40px").setFlexGrow(0);
         grid.addColumn(User::getNome).setHeader("Nome").setWidth("100px").setFlexGrow(0);

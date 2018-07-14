@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements Loggable {
@@ -32,5 +33,10 @@ public class UserRepository implements Loggable {
 
     public int count() {
         return MAX_ITENS;
+    }
+
+    public List<User> findByName(String pattern) {
+        getLogger().debug("Buscando {}...", pattern);
+        return this.findAll().stream().filter(u -> u.getNome().toLowerCase().startsWith(pattern.toLowerCase())).collect(Collectors.toList());
     }
 }
