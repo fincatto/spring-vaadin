@@ -28,7 +28,7 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         menuEsquerda.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         menuEsquerda.setSizeFull();
 
-        final Icon menuIcon = VaadinIcon.MENU.create();
+        //final Icon menuIcon = VaadinIcon.MENU.create();
         final RouterLink linkHome = new RouterLink("Admin", HomePage.class);
         linkHome.addClassName("link_home");
 
@@ -37,7 +37,8 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         final TextField tfPesquisa = new TextField();
         tfPesquisa.setPlaceholder("Pesquisa...");
         tfPesquisa.addKeyPressListener(Key.ENTER, e -> getLogger().debug("Pesquisando por {}...", tfPesquisa.getValue()));
-        menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
+        //menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
+        menuEsquerda.add(linkHome, linkUsers, tfPesquisa);
 
         final HorizontalLayout menuDireita = new HorizontalLayout();
         menuDireita.setDefaultVerticalComponentAlignment(Alignment.CENTER);
