@@ -7,7 +7,6 @@ import com.fincatto.springvaadin.views.HomePage;
 import com.fincatto.springvaadin.views.UsersPage;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -36,6 +35,7 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
 
         final TextField tfPesquisa = new TextField();
         tfPesquisa.setPlaceholder("Pesquisa...");
+        tfPesquisa.setPrefixComponent(VaadinIcon.SEARCH.create());
         tfPesquisa.addKeyPressListener(Key.ENTER, e -> getLogger().debug("Pesquisando por {}...", tfPesquisa.getValue()));
         //menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
         menuEsquerda.add(linkHome, linkUsers, tfPesquisa);
