@@ -14,7 +14,7 @@ public class UserRepository implements Loggable {
     private static final int MAX_ITENS = 100;
 
     public List<User> findAll() {
-        getLogger().debug("Buscando todos...");
+        //getLogger().debug("Buscando todos...");
         final List<User> users = new ArrayList<>(MAX_ITENS);
         for (int i = 1; i <= MAX_ITENS; i++) {
             users.add(new User().setId(i).setNome(String.format("User %s", i)).setEmail(String.format("user%s@gmail.com", i)));
