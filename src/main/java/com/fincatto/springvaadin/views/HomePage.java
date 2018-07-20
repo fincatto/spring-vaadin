@@ -4,9 +4,7 @@ import com.fincatto.springvaadin.layouts.TemplateColunasLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -49,10 +47,10 @@ public class HomePage extends Composite<VerticalLayout> {
         twitterField.setPrefixComponent(VaadinIcon.TWITTER.create());
 
         final FormLayout formLayout = new FormLayout();
+        formLayout.setWidth("100%");
         formLayout.addClassName("sem_margem");
-
         formLayout.add(titleField, firstNameField, lastNameField, phoneField, emailField, twitterField);
-        formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("21em", 2), new FormLayout.ResponsiveStep("22em", 3));
+        formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
 
         final Button botaoSalvar = new Button("Salvar", b -> Notification.show("Salvo com sucesso!"));
         final Button botaoCancelar = new Button("Cancelar", b -> Notification.show("Cancelado!"));

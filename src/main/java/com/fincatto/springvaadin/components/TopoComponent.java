@@ -44,6 +44,7 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         menuDireita.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 
         final ComboBox<User> comboBox = new ComboBox<>();
+        comboBox.setAllowCustomValue(false);
         comboBox.setPreventInvalidInput(true);
         comboBox.setItems(userRepository.findAll());
         //comboBox.setDataProvider(DataProvider.fromFilteringCallbacks(query -> userRepository.findByName(query.getFilter().toString()).stream(), query -> userRepository.findByName(query.getFilter().toString()).size()));
