@@ -3,6 +3,7 @@ package com.fincatto.springvaadin.components;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.User;
 import com.fincatto.springvaadin.repositories.UserRepository;
+import com.fincatto.springvaadin.views.ClientPage;
 import com.fincatto.springvaadin.views.HomePage;
 import com.fincatto.springvaadin.views.UsersPage;
 import com.vaadin.flow.component.Key;
@@ -33,12 +34,14 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
 
         final RouterLink linkUsers = new RouterLink("Users", UsersPage.class);
 
+        final RouterLink linkClient = new RouterLink("Client", ClientPage.class);
+
         final TextField tfPesquisa = new TextField();
         tfPesquisa.setPlaceholder("Pesquisa...");
         tfPesquisa.setPrefixComponent(VaadinIcon.SEARCH.create());
         tfPesquisa.addKeyPressListener(Key.ENTER, e -> getLogger().debug("Pesquisando por {}...", tfPesquisa.getValue()));
         //menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
-        menuEsquerda.add(linkHome, linkUsers, tfPesquisa);
+        menuEsquerda.add(linkHome, linkUsers, linkClient, tfPesquisa);
 
         final HorizontalLayout menuDireita = new HorizontalLayout();
         menuDireita.setDefaultVerticalComponentAlignment(Alignment.CENTER);
