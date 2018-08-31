@@ -5,6 +5,7 @@ import com.fincatto.springvaadin.classes.User;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.fincatto.springvaadin.views.ClientPage;
 import com.fincatto.springvaadin.views.HomePage;
+import com.fincatto.springvaadin.views.SearchPage;
 import com.fincatto.springvaadin.views.UsersPage;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -12,8 +13,12 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TopoComponent extends HorizontalLayout implements Loggable {
 
@@ -39,7 +44,7 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         final TextField tfPesquisa = new TextField();
         tfPesquisa.setPlaceholder("Pesquisa...");
         tfPesquisa.setPrefixComponent(VaadinIcon.SEARCH.create());
-        tfPesquisa.addKeyPressListener(Key.ENTER, e -> getLogger().debug("Pesquisando por {}...", tfPesquisa.getValue()));
+        tfPesquisa.addKeyPressListener(Key.ENTER, e -> tfPesquisa.getUI().ifPresent(ui -> ui.navigate(SearchPage.class, tfPesquisa.getValue())));
         //menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
         menuEsquerda.add(linkHome, linkUsers, linkClient, tfPesquisa);
 
