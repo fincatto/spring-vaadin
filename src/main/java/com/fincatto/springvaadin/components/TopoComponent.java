@@ -13,12 +13,8 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TopoComponent extends HorizontalLayout implements Loggable {
 
