@@ -1,18 +1,15 @@
 package com.fincatto.springvaadin.views;
 
 import com.fincatto.springvaadin.Loggable;
-import com.fincatto.springvaadin.layouts.TemplateColunasLayout;
+import com.fincatto.springvaadin.layouts.TemplateMenuLayout;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import org.apache.commons.lang3.StringUtils;
 
 @PageTitle("Search")
-@Route(value = "search", layout = TemplateColunasLayout.class)
+@Route(value = "search", layout = TemplateMenuLayout.class)
 public class SearchPage extends Composite<VerticalLayout> implements HasUrlParameter<String>, Loggable {
 
     public SearchPage() {

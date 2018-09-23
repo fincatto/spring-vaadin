@@ -1,6 +1,6 @@
 package com.fincatto.springvaadin.views;
 
-import com.fincatto.springvaadin.layouts.TemplateColunasLayout;
+import com.fincatto.springvaadin.layouts.TemplateMenuLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -14,7 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @PageTitle("Admin")
-@Route(value = "", layout = TemplateColunasLayout.class)
+@Route(value = "", layout = TemplateMenuLayout.class)
 public class HomePage extends Composite<VerticalLayout> {
 
     public HomePage() {

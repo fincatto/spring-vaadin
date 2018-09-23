@@ -1,7 +1,7 @@
 package com.fincatto.springvaadin.views;
 
 import com.fincatto.springvaadin.Loggable;
-import com.fincatto.springvaadin.layouts.TemplateColunasLayout;
+import com.fincatto.springvaadin.layouts.TemplateMenuLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @PageTitle("Clients")
-@Route(value = "client", layout = TemplateColunasLayout.class)
+@Route(value = "client", layout = TemplateMenuLayout.class)
 public class ClientPage extends Composite<Div> implements Loggable {
 
     public ClientPage() {

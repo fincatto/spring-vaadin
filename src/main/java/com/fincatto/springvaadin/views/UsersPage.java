@@ -2,7 +2,7 @@ package com.fincatto.springvaadin.views;
 
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.User;
-import com.fincatto.springvaadin.layouts.TemplateColunasLayout;
+import com.fincatto.springvaadin.layouts.TemplateMenuLayout;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -16,7 +16,7 @@ import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @PageTitle("Users")
-@Route(value = "users", layout = TemplateColunasLayout.class)
+@Route(value = "users", layout = TemplateMenuLayout.class)
 public class UsersPage extends Composite<VerticalLayout> implements Loggable {
 
     @Autowired

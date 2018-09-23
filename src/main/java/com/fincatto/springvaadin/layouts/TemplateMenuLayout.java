@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @HtmlImport("styles/shared-styles.html")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
-public class TemplateColunasLayout extends VerticalLayout implements RouterLayout {
+public class TemplateMenuLayout extends VerticalLayout implements RouterLayout {
 
     @Autowired
-    public TemplateColunasLayout(final UserRepository userRepository) {
+    public TemplateMenuLayout(final UserRepository userRepository) {
         this.setMargin(false);
         this.setSpacing(false);
         this.setPadding(false);
