@@ -3,6 +3,7 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.layouts.TemplateSimplesLayout;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;
@@ -39,16 +40,25 @@ public class LoginPage extends Composite<VerticalLayout> implements RouterLayout
         tfSenha.setPlaceholder("Informe sua senha");
         tfSenha.setLabel("Senha");
         tfSenha.setRequired(true);
+        tfSenha.addKeyPressListener(Key.ENTER, e -> {
+            if(autenticarUsuario(manager, tfEmail.getValue(), tfSenha.getValue())){
+                this.getUI().ifPresent(ui -> ui.navigate(HomePage.class));
+            } else {
+                tfSenha.setInvalid(true );
+                tfSenha.setErrorMessage("Senha inválida!");
+            }
+        });
+
 
         final FormLayout formLayout = new FormLayout();
         formLayout.addClassName("sem_margem");
         formLayout.add(tfEmail, tfSenha);
 
-        final Button botaoSalvar = new Button("Entrar", b -> this.getUI().ifPresent(ui -> ui.navigate(autenticarUsuario(manager, tfEmail.getValue(), tfSenha.getValue()) ? HomePage.class : LoginPage.class)));
+        final Button botaoEntrar = new Button("Entrar", b -> this.getUI().ifPresent(ui -> ui.navigate(autenticarUsuario(manager, tfEmail.getValue(), tfSenha.getValue()) ? HomePage.class : LoginPage.class)));
         final Button botaoCancelar = new Button("Cancelar", b -> this.getUI().ifPresent(ui -> ui.navigate("accessDenied")));
         botaoCancelar.setClassName("botao_cancelar");
 
-        final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
+        final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoEntrar, botaoCancelar);
 
         final VerticalLayout verticalLayout = new VerticalLayout(header, formLayout, horizontalLayout);
         verticalLayout.setMargin(false);
@@ -68,8 +78,7 @@ public class LoginPage extends Composite<VerticalLayout> implements RouterLayout
         } catch (UsernameNotFoundException e) {
             getLogger().debug("Usuario nao encontrado: {}", email);
         } catch (Exception e) {
-            getLogger().debug("Erro desconhecido ao logar usuario: {}", email);
-            e.printStackTrace();
+            getLogger().error("Erro desconhecido ao logar usuario: {}", email, e);
             SecurityContextHolder.getContext().setAuthentication(null);
         }
         return false;

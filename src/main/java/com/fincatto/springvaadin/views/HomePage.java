@@ -13,7 +13,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Admin")
+@PageTitle("Home")
 @Route(value = "", layout = TemplateMenuLayout.class)
 public class HomePage extends Composite<VerticalLayout> {
 
