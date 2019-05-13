@@ -16,8 +16,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@PageTitle("Clients")
-@Route(value = "client", layout = TemplateMenuLayout.class)
+@PageTitle("Cliente")
+@Route(value = "cliente", layout = TemplateMenuLayout.class)
 public class ClientPage extends Composite<Div> implements Loggable {
 
     public ClientPage() {

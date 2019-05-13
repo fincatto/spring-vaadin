@@ -3,11 +3,9 @@ package com.fincatto.springvaadin.components;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.User;
 import com.fincatto.springvaadin.repositories.UserRepository;
-import com.fincatto.springvaadin.views.ClientPage;
-import com.fincatto.springvaadin.views.HomePage;
-import com.fincatto.springvaadin.views.SearchPage;
-import com.fincatto.springvaadin.views.UsersPage;
+import com.fincatto.springvaadin.views.*;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -33,16 +31,22 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         final RouterLink linkHome = new RouterLink("Admin", HomePage.class);
         linkHome.addClassName("link_home");
 
-        final RouterLink linkUsers = new RouterLink("Users", UsersPage.class);
+        final RouterLink linkUsers = new RouterLink("Usuários", UsersPage.class);
 
-        final RouterLink linkClient = new RouterLink("Client", ClientPage.class);
+        //final RouterLink linkClient = new RouterLink("Diego Fincatto", ClientPage.class);
+        final Button linkCliente = new Button("Diego Fincatto", e -> this.getUI().ifPresent(ui -> ui.navigate(ClientPage.class)));
+        final Button linkFornecedor = new Button("Fornecedor da Silva", e -> this.getUI().ifPresent(ui -> ui.navigate(FornecedorPage.class)));
+
+
+        final Button linkLogout = new Button("Logout", e -> this.getUI().ifPresent(ui -> ui.getSession().close()));
 
         final TextField tfPesquisa = new TextField();
         tfPesquisa.setPlaceholder("Pesquisa...");
         tfPesquisa.setPrefixComponent(VaadinIcon.SEARCH.create());
         tfPesquisa.addKeyPressListener(Key.ENTER, e -> tfPesquisa.getUI().ifPresent(ui -> ui.navigate(SearchPage.class, tfPesquisa.getValue())));
         //menuEsquerda.add(menuIcon, linkHome, linkUsers, tfPesquisa);
-        menuEsquerda.add(linkHome, linkUsers, linkClient, tfPesquisa);
+        //menuEsquerda.add(linkHome, linkUsers, tfPesquisa);
+        menuEsquerda.add(linkHome, tfPesquisa);
 
         final HorizontalLayout menuDireita = new HorizontalLayout();
         menuDireita.setDefaultVerticalComponentAlignment(Alignment.CENTER);
@@ -68,7 +72,8 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
                 getUI().ifPresent(ui -> ui.navigate(HomePage.class));
             }
         });
-        menuDireita.add(comboBox);
+        //menuDireita.add(comboBox, linkCliente, linkLogout);
+        menuDireita.add(linkCliente, linkFornecedor, linkLogout);
 
         this.add(menuEsquerda, menuDireita);
     }

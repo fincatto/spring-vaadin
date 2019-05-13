@@ -1,19 +1,16 @@
 package com.fincatto.springvaadin;
 
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import com.vaadin.flow.server.*;
 
-@WebListener
-public class SessionListener implements HttpSessionListener, Loggable {
+public class SessionListener extends VaadinServlet implements SessionInitListener, SessionDestroyListener, Loggable {
 
     @Override
-    public void sessionCreated(HttpSessionEvent hse) {
-        getLogger().debug("Sessao criada: " + hse.getSession().getId());
+    public void sessionInit(SessionInitEvent event) {
+        getLogger().debug("Sessao criada: " + event.getSession().getSession().getId());
     }
 
     @Override
-    public void sessionDestroyed(HttpSessionEvent hse) {
-        getLogger().debug("Sessao destruida: "+hse.getSession().getId());
+    public void sessionDestroy(SessionDestroyEvent event) {
+        getLogger().debug("Sessao destruida: " + event.getSession().getSession().getId());
     }
 }

@@ -29,7 +29,8 @@ public class SpringVaadinSecurity extends WebSecurityConfigurerAdapter {
                 // allow Vaadin URLs without authentication
                 .regexMatchers("/frontend/.*", "/VAADIN/.*", "/login.*", "/accessDenied.*").permitAll().regexMatchers(HttpMethod.POST, "/\\?v-r=.*").permitAll()
                 // deny other URLs until authenticated
-                .antMatchers("/**").fullyAuthenticated();
+                //.antMatchers("/**").fullyAuthenticated();
+                .antMatchers("/**").permitAll();
     }
 
     @Bean

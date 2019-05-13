@@ -22,15 +22,11 @@ public class UsersPage extends Composite<VerticalLayout> implements Loggable {
     @Autowired
     public UsersPage(final UserRepository userRepository) {
         final Grid<User> grid = new Grid<>();
-        //grid.addColumn(User::getId).setHeader("ID").setWidth("40px").setFlexGrow(0);
         grid.addColumn(User::getNome).setHeader("Nome").setWidth("100px").setFlexGrow(0);
         grid.addColumn(User::getEmail).setHeader("Email");
         grid.setSelectionMode(Grid.SelectionMode.MULTI);
-        //grid.setColumnReorderingAllowed(true);
-        //grid.setMultiSort(true);
-        grid.setPageSize(30);
-        //grid.setItems(userRepository.findAll());
         grid.setDataProvider(DataProvider.fromCallbacks(q -> userRepository.findByOffset(q.getOffset(), q.getLimit()).stream(), q -> userRepository.count()));
+        grid.setPageSize(30);
 
         final Dialog dialog = new Dialog();
         dialog.add(new PersonForm(dialog));
