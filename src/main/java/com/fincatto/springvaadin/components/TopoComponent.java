@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 import com.vaadin.flow.router.RouterLink;
@@ -74,6 +75,14 @@ public class TopoComponent extends HorizontalLayout implements Loggable {
         });
         //menuDireita.add(comboBox, linkCliente, linkLogout);
         menuDireita.add(linkCliente, linkFornecedor, linkLogout);
+
+        final Select<String> select = new Select<>("Teste 1", "Teste 2", "Teste 3");
+        select.setEmptySelectionAllowed(true);
+        select.setEmptySelectionCaption("Select you title");
+        //select.setClassName("header");
+        //select.setLabel("Titulo");
+
+        menuDireita.add(select);
 
         this.add(menuEsquerda, menuDireita);
     }
