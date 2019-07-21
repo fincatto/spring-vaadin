@@ -14,14 +14,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.5.RELEASE</version>
+        <version>2.1.6.RELEASE</version>
         <relativePath/>
     </parent>
 
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>13.0.8</vaadin.version>
+        <vaadin.version>14.0.0.rc6</vaadin.version>
         <java.version>11</java.version>
     </properties>
 
@@ -91,4 +91,23 @@
             </build>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>Vaadin pre-release repository</id>
+            <url>http://maven.vaadin.com/vaadin-prereleases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Vaadin pre-release repository</id>
+            <url>http://maven.vaadin.com/vaadin-prereleases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
