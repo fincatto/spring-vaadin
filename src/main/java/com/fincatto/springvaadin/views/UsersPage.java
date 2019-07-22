@@ -2,12 +2,15 @@ package com.fincatto.springvaadin.views;
 
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.User;
-import com.fincatto.springvaadin.layouts.TemplateMenuLayout;
+import com.fincatto.springvaadin.layouts.TemplateMenuNativoLayout;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
@@ -15,8 +18,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@PageTitle("Users")
-@Route(value = "users", layout = TemplateMenuLayout.class)
+@PageTitle("Usuarios")
+@Route(value = "users", layout = TemplateMenuNativoLayout.class)
 public class UsersPage extends Composite<VerticalLayout> implements Loggable {
 
     @Autowired
@@ -45,7 +48,7 @@ public class UsersPage extends Composite<VerticalLayout> implements Loggable {
         grid.addSelectionListener(sl -> botaoInativar.setVisible(!grid.getSelectedItems().isEmpty()));
 
         final HorizontalLayout botoes = new HorizontalLayout(botaoNovo, botaoExcluir, botaoInativar);
-        this.getContent().add(grid, botoes);
+        this.getContent().add(new H3("Teste"), grid, botoes);
         this.getContent().setSizeFull();
     }
 }
