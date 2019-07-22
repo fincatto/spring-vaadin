@@ -14,10 +14,10 @@ public class TemplateMenuLayout extends VerticalLayout implements RouterLayout {
 
     @Autowired
     public TemplateMenuLayout(final UserRepository userRepository) {
-        this.setMargin(false);
-        this.setSpacing(false);
-        this.setPadding(false);
-        this.setSizeFull();
+//        this.setMargin(false);
+//        this.setSpacing(false);
+//        this.setPadding(false);
+//        this.setSizeFull();
         this.add(new TopoComponent(userRepository));
     }
 }
