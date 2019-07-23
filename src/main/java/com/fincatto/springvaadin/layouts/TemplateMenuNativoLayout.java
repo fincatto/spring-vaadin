@@ -19,6 +19,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
@@ -47,12 +48,14 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         super.addToNavbar(horizontalLayout1);
         
         final Tabs tabs = new Tabs();
+        tabs.addThemeVariants(TabsVariant.LUMO_SMALL);
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
-        for (int i = 1; i < 5; i++) {
-            final Tab titulo = new Tab(String.format("Secao %s", i));
+        for (int i = 1; i <= 10; i++) {
+            final Tab titulo = new Tab(String.format("Secao %s", i).toUpperCase());
             titulo.setEnabled(false);
             tabs.add(titulo, new Tab("Home"), new Tab("About"));
         }
+        //tabs.addSelectedChangeListener(l -> l.getSelectedTab().ge)
         super.addToDrawer(tabs);
         
         final MenuBar menuBar = new MenuBar();
