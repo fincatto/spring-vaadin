@@ -3,19 +3,21 @@ package com.fincatto.springvaadin.layouts;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.fincatto.springvaadin.views.ClientPage;
+import com.fincatto.springvaadin.views.FornecedorPage;
 import com.fincatto.springvaadin.views.HomePage;
 import com.fincatto.springvaadin.views.UsersPage;
+import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
+import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -46,17 +48,24 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         final HorizontalLayout horizontalLayout1 = new HorizontalLayout();
         horizontalLayout1.setWidthFull();
         super.addToNavbar(horizontalLayout1);
-        
+
         final Tabs tabs = new Tabs();
         tabs.addThemeVariants(TabsVariant.LUMO_SMALL);
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 3; i++) {
             final Tab titulo = new Tab(String.format("Secao %s", i).toUpperCase());
             titulo.setEnabled(false);
             tabs.add(titulo, new Tab("Home"), new Tab("About"));
         }
-        //tabs.addSelectedChangeListener(l -> l.getSelectedTab().ge)
         super.addToDrawer(tabs);
+    
+        final Accordion accordion = new Accordion();
+        accordion.add("Notas", new RouterLink("Clientes", ClientPage.class)).addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        accordion.add("Pedidos", new RouterLink("Fornecedores", FornecedorPage.class)).addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        final AccordionPanel disabledPannel = accordion.add("Clientes", new RouterLink("Home", HomePage.class));
+        disabledPannel.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        disabledPannel.setEnabled(false);
+        super.addToDrawer(accordion);
         
         final MenuBar menuBar = new MenuBar();
         
@@ -86,18 +95,18 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         final HorizontalLayout horizontalLayout = new HorizontalLayout(menuBar);
         //horizontalLayout.setAlignItems(FlexComponent.Alignment.END);
         super.addToNavbar(horizontalLayout);
-        
-        for (int i = 1; i < 5; i++) {
-            final H6 secao1 = new H6(String.format("Secao %s", i));
-            final RouterLink home = new RouterLink("Home", HomePage.class);
-            final RouterLink about = new RouterLink("About Company", AboutView.class);
-            final RouterLink cliente = new RouterLink("Cliente", ClientPage.class);
-            
-            final VerticalLayout layout = new VerticalLayout(secao1, home, about, cliente);
-            layout.setSpacing(false);
-            layout.setMargin(false);
-            super.addToDrawer(layout);
-        }
+    
+        //        for (int i = 1; i < 5; i++) {
+        //            final H6 secao1 = new H6(String.format("Secao %s", i));
+        //            final RouterLink home = new RouterLink("Home", HomePage.class);
+        //            final RouterLink about = new RouterLink("About Company", AboutView.class);
+        //            final RouterLink cliente = new RouterLink("Cliente", ClientPage.class);
+        //
+        //            final VerticalLayout layout = new VerticalLayout(secao1, home, about, cliente);
+        //            layout.setSpacing(false);
+        //            layout.setMargin(false);
+        //            super.addToDrawer(layout);
+        //        }
     }
 }
 
