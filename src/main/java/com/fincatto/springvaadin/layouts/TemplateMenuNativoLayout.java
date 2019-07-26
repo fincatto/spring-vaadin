@@ -12,6 +12,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
+import com.vaadin.flow.component.dependency.HtmlImport;
 import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
@@ -19,16 +20,14 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.page.Viewport;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.tabs.TabsVariant;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
-//@HtmlImport("styles/shared-styles.html")
+@HtmlImport("styles/shared-styles.html")
 //@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @Viewport("width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes, viewport-fit=cover")
 //@BodySize
@@ -48,26 +47,46 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         final HorizontalLayout horizontalLayout1 = new HorizontalLayout();
         horizontalLayout1.setWidthFull();
         super.addToNavbar(horizontalLayout1);
-
-        final Tabs tabs = new Tabs();
-        tabs.addThemeVariants(TabsVariant.LUMO_SMALL);
-        tabs.setOrientation(Tabs.Orientation.VERTICAL);
-        for (int i = 1; i <= 3; i++) {
-            final Tab titulo = new Tab(String.format("Secao %s", i).toUpperCase());
-            titulo.setEnabled(false);
-            tabs.add(titulo, new Tab("Home"), new Tab("About"));
-        }
-        super.addToDrawer(tabs);
+    
+        //        final Tabs tabs = new Tabs();
+        //        tabs.addThemeVariants(TabsVariant.LUMO_SMALL);
+        //        tabs.setOrientation(Tabs.Orientation.VERTICAL);
+        //        for (int i = 1; i <= 3; i++) {
+        //            final Tab titulo = new Tab(String.format("Secao %s", i).toUpperCase());
+        //            titulo.setEnabled(false);
+        //            tabs.add(titulo, new Tab("Home"), new Tab("About"));
+        //        }
+        //        super.addToDrawer(tabs);
+    
+        //        final TextField tfBuscaMenu = new TextField("", "Busca...");
+        //        tfBuscaMenu.setWidthFull();
     
         final Accordion accordion = new Accordion();
-        accordion.add("Notas", new RouterLink("Clientes", ClientPage.class)).addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-        accordion.add("Pedidos", new RouterLink("Fornecedores", FornecedorPage.class)).addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        AccordionPanel accordionPanelCliente = accordion.add("Clientes", new RouterLink("Notas", ClientPage.class));
+        accordionPanelCliente.addContent(new Div(new RouterLink("Pedidos", ClientPage.class)));
+        accordionPanelCliente.addContent(new Div(new RouterLink("Trocas", ClientPage.class)));
+    
+        accordionPanelCliente.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        final AccordionPanel accordionPanelProdutos = accordion.add("Produtos", new RouterLink("Lancamentos", FornecedorPage.class));
+        accordionPanelProdutos.addContent(new Div(new RouterLink("Catalogos", FornecedorPage.class)));
+        accordionPanelProdutos.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+        
         final AccordionPanel disabledPannel = accordion.add("Clientes", new RouterLink("Home", HomePage.class));
         disabledPannel.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
         disabledPannel.setEnabled(false);
-        super.addToDrawer(accordion);
+    
+        final Div div = new Div(accordion);
+        div.addClassName("menu");
+        super.addToDrawer(div);
         
         final MenuBar menuBar = new MenuBar();
+    
+        //busca
+        final TextField tfBusca = new TextField(null, "Pesquisa de dados...");
+        tfBusca.setWidth("100px");
+        tfBusca.addFocusListener(textFieldFocusEvent -> tfBusca.setWidth("300px"));
+        tfBusca.addBlurListener(textFieldFocusEvent -> tfBusca.setWidth("100px"));
+        menuBar.addItem(tfBusca);
         
         // Define menubar items
         final MenuItem menuItemFornecedor = menuBar.addItem("Diego Fincatto");
