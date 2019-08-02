@@ -3,6 +3,7 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.layouts.TemplateMenuNativoLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -53,8 +54,10 @@ public class HomePage extends Composite<VerticalLayout> {
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
         
         final Button botaoSalvar = new Button("Salvar", b -> Notification.show("Salvo com sucesso!"));
+        botaoSalvar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         final Button botaoCancelar = new Button("Cancelar", b -> Notification.show("Cancelado!"));
-        botaoCancelar.setClassName("botao_cancelar");
+        botaoCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        //botaoCancelar.setClassName("botao_cancelar");
         
         final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
         //horizontalLayout.setMargin(true);
