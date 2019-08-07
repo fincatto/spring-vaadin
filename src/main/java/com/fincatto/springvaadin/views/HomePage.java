@@ -49,15 +49,15 @@ public class HomePage extends Composite<VerticalLayout> {
         
         final FormLayout formLayout = new FormLayout();
         formLayout.setWidth("100%");
-        formLayout.addClassName("sem_margem");
+        //formLayout.addClassName("sem_margem");
         formLayout.add(titleField, firstNameField, lastNameField, phoneField, emailField, twitterField);
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
         
         final Button botaoSalvar = new Button("Salvar", b -> Notification.show("Salvo com sucesso!"));
         botaoSalvar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+    
         final Button botaoCancelar = new Button("Cancelar", b -> Notification.show("Cancelado!"));
         botaoCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-        //botaoCancelar.setClassName("botao_cancelar");
         
         final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
         //horizontalLayout.setMargin(true);

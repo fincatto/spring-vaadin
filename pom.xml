@@ -21,7 +21,7 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>14.0.0.rc6</vaadin.version>
+        <vaadin.version>14.0.0.rc7</vaadin.version>
         <java.version>11</java.version>
     </properties>
 

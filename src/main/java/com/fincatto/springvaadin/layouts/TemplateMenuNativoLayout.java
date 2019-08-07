@@ -6,6 +6,7 @@ import com.fincatto.springvaadin.repositories.UserRepository;
 import com.fincatto.springvaadin.views.ClientPage;
 import com.fincatto.springvaadin.views.FornecedorPage;
 import com.fincatto.springvaadin.views.HomePage;
+import com.fincatto.springvaadin.views.SessionPage;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -45,6 +46,7 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         final AccordionPanel accordionPanelFornecedor = accordion.add("Diego Fincatto", new RouterLink("Dashboard", ClientPage.class));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
+        accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
         accordionPanelFornecedor.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
     
         final AccordionPanel accordionPanelBanco = accordion.add("Banco do Brasil", new RouterLink("Arquivos", ClientPage.class));
