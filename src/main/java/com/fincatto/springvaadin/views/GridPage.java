@@ -8,6 +8,7 @@ import com.fincatto.springvaadin.repositories.ClientRepository;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H4;
@@ -35,16 +36,22 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         
         final Grid<Invoice> grid = new Grid<>(Invoice.class, false);
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES, GridVariant.LUMO_COMPACT, GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
-        grid.addColumn(Invoice::getNumero).setHeader("Numero");
-        grid.addColumn(Invoice::getQuantidade).setHeader("Qtd");
-        grid.addColumn(Invoice::getValorUnitario).setHeader("Valor");
-        grid.addColumn(Invoice::getValorTotal).setHeader("Total");
-        //invoiceGrid.setSelectionMode(Grid.SelectionMode.MULTI);
         grid.setItems(cliente.getInvoices());
+        grid.addColumn(i -> "Nota " + i.getNumero()).setHeader("Numero").setFlexGrow(0);
+        grid.addColumn(Invoice::getQuantidade).setHeader("Qtd").setTextAlign(ColumnTextAlign.END).setFlexGrow(0);
+        grid.addColumn(Invoice::getValorUnitario).setHeader("Valor").setTextAlign(ColumnTextAlign.END).setFlexGrow(0);
+        grid.addColumn(Invoice::getValorTotal).setHeader("Total").setTextAlign(ColumnTextAlign.END).setFlexGrow(0);
+        grid.addColumn(i -> "").setFlexGrow(1);
+        //grid.getColumns().forEach(column -> column.setAutoWidth(true));
+        //grid.addColumn(i -> "").setWidth("100%");
+    
+        //grid.setSizeFull();
+        grid.setHeightFull();
         grid.setMultiSort(true);
-        grid.setSizeFull();
-        //invoiceGrid.setHeightFull();
-        //invoiceGrid.setSizeFull();
+        grid.setColumnReorderingAllowed(true);
+        //grid.setSelectionMode(Grid.SelectionMode.MULTI);
+        grid.getColumns().forEach(column -> column.setResizable(true));
+        //grid.getHeaderRows().forEach(h-> h.getCells().forEach(c -> c.set));
         
         final Button adicionar = new Button("Adicionar");
         //adicionar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
