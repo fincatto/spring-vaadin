@@ -3,10 +3,7 @@ package com.fincatto.springvaadin.layouts;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.components.WMXLink;
 import com.fincatto.springvaadin.repositories.UserRepository;
-import com.fincatto.springvaadin.views.ClientPage;
-import com.fincatto.springvaadin.views.FornecedorPage;
-import com.fincatto.springvaadin.views.HomePage;
-import com.fincatto.springvaadin.views.SessionPage;
+import com.fincatto.springvaadin.views.*;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -31,10 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PreserveOnRefresh
 @PageTitle("Home")
 @PWA(name = "Sistema Admin", shortName = "SysAdmin", enableInstallPrompt = false)
-public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
+public class TemplatePrincipalLayout extends AppLayout implements Loggable {
     
     @Autowired
-    public TemplateMenuNativoLayout(final UserRepository userRepository) {
+    public TemplatePrincipalLayout(final UserRepository userRepository) {
         getLogger().debug("Iniciando construcao do template...");
     
         super.addToNavbar(new DrawerToggle());
@@ -43,9 +40,12 @@ public class TemplateMenuNativoLayout extends AppLayout implements Loggable {
         //menu acordeon
         final Accordion accordion = new Accordion();
     
-        final AccordionPanel accordionPanelFornecedor = accordion.add("Diego Fincatto", new RouterLink("Dashboard", ClientPage.class));
-        accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
-        accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
+        final AccordionPanel accordionPanelFornecedor = accordion.add("Diego Fincatto", new RouterLink("Home", HomePage.class));
+        accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario", FormularioPage.class)));
+        accordionPanelFornecedor.addContent(new Div(new RouterLink("Grid", GridPage.class)));
+    
+        //accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
+        //accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
         accordionPanelFornecedor.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
     

@@ -1,6 +1,6 @@
 package com.fincatto.springvaadin.views;
 
-import com.fincatto.springvaadin.layouts.TemplateMenuNativoLayout;
+import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -15,7 +15,7 @@ import com.vaadin.flow.spring.SpringVaadinSession;
 import java.time.LocalDateTime;
 
 @PageTitle("Session")
-@Route(value = "session", layout = TemplateMenuNativoLayout.class)
+@Route(value = "session", layout = TemplatePrincipalLayout.class)
 public class SessionPage extends Composite<VerticalLayout> {
     
     private static final String SESSION_ATTRIB = "nome";

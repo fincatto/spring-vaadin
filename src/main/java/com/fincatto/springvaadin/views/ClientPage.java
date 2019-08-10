@@ -3,7 +3,7 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.Client;
 import com.fincatto.springvaadin.classes.Invoice;
-import com.fincatto.springvaadin.layouts.TemplateMenuNativoLayout;
+import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.fincatto.springvaadin.repositories.ClientRepository;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @PageTitle("Cliente")
-@Route(value = "cliente", layout = TemplateMenuNativoLayout.class)
+@Route(value = "cliente", layout = TemplatePrincipalLayout.class)
 public class ClientPage extends Composite<Div> implements Loggable {
     
     @Autowired
