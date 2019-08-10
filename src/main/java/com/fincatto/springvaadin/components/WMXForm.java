@@ -9,6 +9,10 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+/**
+ * Classe que representa um formulario qualquer no sistema. <br>
+ * Padroniza componentes e estilos no sistema inteiro.
+ */
 public class WMXForm extends Composite<VerticalLayout> {
     
     public WMXForm(String titulo) {

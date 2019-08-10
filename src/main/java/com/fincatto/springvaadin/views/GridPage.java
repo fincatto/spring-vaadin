@@ -90,8 +90,11 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
     
     private void editarNota(Invoice invoice, Grid<Invoice> grid) {
         final Binder<Invoice> binder = new BeanValidationBinder<>(Invoice.class);
-        getLogger().debug("Editando invoice " + invoice.getNumero());
+        //binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
         
+        getLogger().debug("Editando invoice " + invoice.getNumero());
+        final Dialog dialog = new Dialog();
+    
         final HorizontalLayout formHeader = new HorizontalLayout(new H4("Formulario"));
         formHeader.setWidthFull();
         formHeader.setMargin(false);
@@ -100,20 +103,23 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         final TextField tfCodigo = new TextField();
         tfCodigo.setLabel("Codigo");
         tfCodigo.setEnabled(false);
-        binder.forField(tfCodigo).withConverter(new StringToLongConverter("Codigo invalido")).bind(Invoice::getId, null);
+        binder.forField(tfCodigo).asRequired("Código necessario").withConverter(new StringToLongConverter("Codigo invalido")).bind(Invoice::getId, null);
         
         final TextField tfNumero = new TextField();
         tfNumero.setLabel("Numero");
         tfNumero.setAutofocus(true);
-        binder.forField(tfNumero).withConverter(new StringToIntegerConverter("Numero invalido")).bind(Invoice::getNumero, Invoice::setNumero);
+        tfNumero.setRequired(true);
+        binder.forField(tfNumero).asRequired("Numero necessario").withConverter(new StringToIntegerConverter("Numero invalido")).bind(Invoice::getNumero, Invoice::setNumero);
         
         final TextField tfQuantidade = new TextField();
         tfQuantidade.setLabel("Quantidade");
-        binder.forField(tfQuantidade).withConverter(new StringToBigDecimalConverter("Quantidade invalida")).bind(Invoice::getQuantidade, Invoice::setQuantidade);
+        tfQuantidade.setRequired(true);
+        binder.forField(tfQuantidade).asRequired("Quantidade necessaria").withConverter(new StringToBigDecimalConverter("Quantidade invalida")).bind(Invoice::getQuantidade, Invoice::setQuantidade);
         
         final TextField tfValorUnitario = new TextField();
         tfValorUnitario.setLabel("Valor unitário");
-        binder.forField(tfValorUnitario).withConverter(new StringToBigDecimalConverter("Valor unitário inválido")).bind(Invoice::getValorUnitario, Invoice::setValorUnitario);
+        tfValorUnitario.setRequired(true);
+        binder.forField(tfValorUnitario).asRequired("Valor unitário necessario").withConverter(new StringToBigDecimalConverter("Valor unitário inválido")).bind(Invoice::getValorUnitario, Invoice::setValorUnitario);
         
         final FormLayout formLayout = new FormLayout();
         formLayout.add(tfCodigo, tfNumero, tfQuantidade, tfValorUnitario);
@@ -124,6 +130,7 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
             if (binder.writeBeanIfValid(invoice)) {
                 grid.getDataProvider().refreshItem(invoice);
                 grid.getDataProvider().refreshAll();
+                dialog.close();
             } else {
                 Notification.show("Deu ruim!");
             }
@@ -132,6 +139,7 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         
         final Button botaoCancelar = new Button("Cancelar", b -> {
             binder.readBean(invoice);
+            dialog.close();
         });
         botaoCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
         
@@ -139,10 +147,7 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         
         final VerticalLayout vlForm = new VerticalLayout(formHeader, new Hr(), formLayout, horizontalLayout);
         vlForm.setMaxWidth("800px");
-        
-        final Dialog dialog = new Dialog(vlForm);
-        botaoSalvar.addClickListener(cl -> dialog.close());
-        botaoCancelar.addClickListener(cl -> dialog.close());
+        dialog.add(vlForm);
         dialog.open();
     }
 }
