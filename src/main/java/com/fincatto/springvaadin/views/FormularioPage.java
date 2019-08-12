@@ -59,8 +59,8 @@ public class FormularioPage extends Composite<VerticalLayout> {
         
         final Button botaoCancelar = new Button("Cancelar", b -> Notification.show("Cancelado!"));
         botaoCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-        
-        final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoCancelar, botaoSalvar);
+    
+        final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
         
         this.getContent().setSizeFull();
         this.getContent().setMargin(false);
