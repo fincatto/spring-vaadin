@@ -21,7 +21,6 @@ import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.server.VaadinService;
-import com.vaadin.flow.spring.SpringVaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @HtmlImport("styles/shared-styles.html")
@@ -45,7 +44,8 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario", FormularioPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario component", FormularioComponentePage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Grid", GridPage.class)));
-    
+        accordionPanelFornecedor.addContent(new Div(new RouterLink("Cards", CardsPage.class)));
+        
         //accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
         //accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
@@ -96,11 +96,11 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         final MenuBar menuBar = new MenuBar();
     
         //busca
-//        final TextField tfBusca = new TextField(null, "Pesquisa de dados...");
-//        tfBusca.setWidth("100px");
-//        tfBusca.addFocusListener(textFieldFocusEvent -> tfBusca.setWidth("300px"));
-//        tfBusca.addBlurListener(textFieldFocusEvent -> tfBusca.setWidth("100px"));
-//        menuBar.addItem(tfBusca);
+        //        final TextField tfBusca = new TextField(null, "Pesquisa de dados...");
+        //        tfBusca.setWidth("100px");
+        //        tfBusca.addFocusListener(textFieldFocusEvent -> tfBusca.setWidth("300px"));
+        //        tfBusca.addBlurListener(textFieldFocusEvent -> tfBusca.setWidth("100px"));
+        //        menuBar.addItem(tfBusca);
         
         // Define menubar items
         final MenuItem menuItemFornecedor = menuBar.addItem("Diego Fincatto");
