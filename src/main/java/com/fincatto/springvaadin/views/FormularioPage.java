@@ -1,5 +1,6 @@
 package com.fincatto.springvaadin.views;
 
+import com.fincatto.springvaadin.components.WMXHeader;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
@@ -20,11 +21,8 @@ import com.vaadin.flow.router.Route;
 public class FormularioPage extends Composite<VerticalLayout> {
     
     public FormularioPage() {
-        final HorizontalLayout header = new HorizontalLayout(new H4("Formulario"));
-        header.setWidthFull();
-        header.setMargin(false);
-        header.setSpacing(false);
-        
+        final WMXHeader header = new WMXHeader("Formulário");
+
         final TextField titleField = new TextField();
         titleField.setLabel("Title");
         titleField.setPlaceholder("Sir");
@@ -65,6 +63,6 @@ public class FormularioPage extends Composite<VerticalLayout> {
         this.getContent().setSizeFull();
         this.getContent().setMargin(false);
         //this.getContent().setSpacing(false);
-        this.getContent().add(header, new Hr(), formLayout, horizontalLayout);
+        this.getContent().add(header, formLayout, horizontalLayout);
     }
 }

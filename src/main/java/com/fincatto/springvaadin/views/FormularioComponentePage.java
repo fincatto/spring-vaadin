@@ -33,12 +33,11 @@ public class FormularioComponentePage extends Composite<Div> {
         emailField.setPrefixComponent(VaadinIcon.ENVELOPE.create());
         
         final WMXForm form = new WMXForm("Formulario automatico");
-        form.addComponent(firstNameField, lastNameField, phoneField, emailField);
+        form.addFormComponent(firstNameField, lastNameField, phoneField, emailField);
         form.addBotaoSalvar(b -> Notification.show("Salvo com sucesso!"));
         form.addBotaoCancelar(b -> Notification.show("Cancelado!"));
         
         this.getContent().add(form);
         this.getContent().setSizeFull();
-        //this.getContent().setMargin(false);
     }
 }

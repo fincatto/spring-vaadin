@@ -18,25 +18,29 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
  */
 public class WMXForm extends Composite<VerticalLayout> {
     
-    private final FormLayout formLayout = new FormLayout();
-    private final HorizontalLayout horizontalLayoutAcoes = new HorizontalLayout();
-    
+    private final FormLayout formLayout;
+    private final HorizontalLayout horizontalLayoutAcoes;
+    private final WMXHeader header;
+
     public WMXForm(String titulo) {
-        final HorizontalLayout header = new HorizontalLayout(new H4(titulo));
-        header.setWidthFull();
-        header.setMargin(false);
-        header.setSpacing(false);
-        this.getContent().add(header);
-        
-        formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
-        this.getContent().add(formLayout);
-    
-        this.getContent().setSizeFull();
+        this.header = new WMXHeader(titulo);
+
+        this.formLayout = new FormLayout();
+        this.formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
+
+        this.horizontalLayoutAcoes = new HorizontalLayout();
+
+        this.getContent().add(header, formLayout, horizontalLayoutAcoes);
         this.getContent().setMargin(false);
-        this.getContent().add(header, new Hr(), formLayout, horizontalLayoutAcoes);
+        this.getContent().setSizeFull();
     }
-    
-    public WMXForm addComponent(final Component... components) {
+
+    public WMXForm addHeaderComponent(final Component... components) {
+        header.add(components);
+        return this;
+    }
+
+    public WMXForm addFormComponent(final Component... components) {
         formLayout.add(components);
         return this;
     }

@@ -3,6 +3,7 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.Client;
 import com.fincatto.springvaadin.classes.Invoice;
+import com.fincatto.springvaadin.components.WMXHeader;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.fincatto.springvaadin.repositories.ClientRepository;
 import com.vaadin.flow.component.Composite;
@@ -38,12 +39,7 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
     public GridPage(final ClientRepository clientRepository) {
         getLogger().debug("Construindo tela do cliente...");
         final Client cliente = clientRepository.findById(1l);
-        
-        final HorizontalLayout header = new HorizontalLayout(new H4("Notas"));
-        header.setWidthFull();
-        header.setMargin(false);
-        header.setSpacing(false);
-        
+
         final Grid<Invoice> grid = new Grid<>(Invoice.class, false);
         grid.addThemeVariants(GridVariant.LUMO_ROW_STRIPES, GridVariant.LUMO_COMPACT, GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
         grid.setItems(cliente.getInvoices());
@@ -85,7 +81,9 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         this.getContent().setSizeFull();
         this.getContent().setMargin(false);
         this.getContent().setSpacing(false);
-        this.getContent().add(header, new Hr(), grid, horizontalLayoutAcoes);
+
+        final WMXHeader header = new WMXHeader("Grid");
+        this.getContent().add(header, grid, horizontalLayoutAcoes);
     }
     
     private void editarNota(Invoice invoice, Grid<Invoice> grid) {
