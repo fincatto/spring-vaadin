@@ -21,9 +21,11 @@ public class CardsPage extends Composite<VerticalLayout> {
         header.setSpacing(false);
         
         final FlexLayout cardsLayout = new FlexLayout();
-        cardsLayout.setSizeFull();
+        //cardsLayout.setWidthFull();
         cardsLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
-        cardsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
+        cardsLayout.setAlignItems(FlexComponent.Alignment.START);
+        //cardsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
+        cardsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.START);
         for (int i = 0; i < 100; i++) {
             Div div = new Div();
             div.add(new Image("https://capas-c.ewmix.com/15563.jpg", "Capa do produto"));
@@ -62,6 +64,8 @@ public class CardsPage extends Composite<VerticalLayout> {
         this.getContent().setSizeFull();
         this.getContent().setMargin(false);
         //this.getContent().setSpacing(false);
-        this.getContent().add(header, new Hr(), cardsLayout);
+        final Hr hr = new Hr();
+        hr.setMinHeight("1px");
+        this.getContent().add(header, hr, cardsLayout);
     }
 }
