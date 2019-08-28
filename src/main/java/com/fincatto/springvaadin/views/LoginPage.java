@@ -3,83 +3,75 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.layouts.TemplateSimplesLayout;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Route(value = "login", layout = TemplateSimplesLayout.class)
-public class LoginPage extends Composite<VerticalLayout> implements RouterLayout, Loggable {
+public class LoginPage extends Div implements RouterLayout, Loggable {
 
     @Autowired
     public LoginPage(final UserDetailsManager manager) {
-        final H2 header = new H2("Login");
-        header.addClassName("sem_margem");
-
-        final TextField tfEmail = new TextField();
-        tfEmail.setPlaceholder("Informe seu e-mail");
-        tfEmail.setLabel("Usuario");
-        tfEmail.setRequired(true);
-        tfEmail.focus();
-
-        final PasswordField tfSenha = new PasswordField();
-        tfSenha.setPlaceholder("Informe sua senha");
-        tfSenha.setLabel("Senha");
-        tfSenha.setRequired(true);
-        tfSenha.addKeyPressListener(Key.ENTER, e -> {
-            if(autenticarUsuario(manager, tfEmail.getValue(), tfSenha.getValue())){
+        final LoginForm loginForm = new LoginForm();
+        loginForm.setForgotPasswordButtonVisible(false);
+        loginForm.addLoginListener(e -> {
+            final boolean autenticado = autenticarUsuario(manager, e.getUsername(), e.getPassword());
+            if (autenticado) {
                 this.getUI().ifPresent(ui -> ui.navigate(HomePage.class));
             } else {
-                tfSenha.setInvalid(true );
-                tfSenha.setErrorMessage("Senha inválida!");
+                loginForm.setError(true);
             }
         });
-
-
-        final FormLayout formLayout = new FormLayout();
-        formLayout.addClassName("sem_margem");
-        formLayout.add(tfEmail, tfSenha);
-
-        final Button botaoEntrar = new Button("Entrar", b -> this.getUI().ifPresent(ui -> ui.navigate(autenticarUsuario(manager, tfEmail.getValue(), tfSenha.getValue()) ? HomePage.class : LoginPage.class)));
-        final Button botaoCancelar = new Button("Cancelar", b -> this.getUI().ifPresent(ui -> ui.navigate("accessDenied")));
-        botaoCancelar.setClassName("botao_cancelar");
-
-        final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoEntrar, botaoCancelar);
-
-        final VerticalLayout verticalLayout = new VerticalLayout(header, formLayout, horizontalLayout);
-        verticalLayout.setMargin(false);
-        this.getContent().add(verticalLayout);
+        this.add(loginForm);
     }
 
-    private boolean autenticarUsuario(UserDetailsManager manager, String email, String senha) {
-        try {
-            if (Strings.isNotBlank(email)) {
+    private boolean autenticarUsuario(final UserDetailsManager manager, final String email, final String senha) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        if (Strings.isNotBlank(email)) {
+            if (manager.userExists(email)) {
                 final UserDetails userDetails = manager.loadUserByUsername(email);
-                if (userDetails != null && userDetails.getUsername().equalsIgnoreCase(email) && userDetails.getPassword().equals(senha)) {
-                    final Authentication auth = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                    return true;
+                if (!userDetails.getPassword().equals(senha)) {
+                    getLogger().warn("Senha incorreta para usuario '{}'!", email);
+                    return false;
                 }
+                if (!userDetails.isEnabled()) {
+                    getLogger().warn("Conta desabilitada para usuario: '{}'!", email);
+                    return false;
+                }
+                if (!userDetails.isAccountNonExpired()) {
+                    getLogger().warn("Conta expirada para usuario: '{}'!", email);
+                    return false;
+                }
+                if (!userDetails.isAccountNonLocked()) {
+                    getLogger().warn("Conta travada para usuario: '{}'!", email);
+                    return false;
+                }
+                if (!userDetails.isCredentialsNonExpired()) {
+                    getLogger().warn("Credencial expirada para usuario: '{}'!", email);
+                    return false;
+                }
+
+                //se chegou aqui eh porque esta tudo certo
+                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()));
+                final Set<String> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toUnmodifiableSet());
+                getLogger().warn("{}: {}", userDetails.getUsername(), roles.toString());
+                return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+            } else {
+                getLogger().warn("Usuario inexistente para email '{}'!", email);
+                return false;
             }
-        } catch (UsernameNotFoundException e) {
-            getLogger().debug("Usuario nao encontrado: {}", email);
-        } catch (Exception e) {
-            getLogger().error("Erro desconhecido ao logar usuario: {}", email, e);
-            SecurityContextHolder.getContext().setAuthentication(null);
         }
         return false;
     }

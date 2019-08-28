@@ -29,8 +29,8 @@ public class SpringVaadinSecurity extends WebSecurityConfigurerAdapter {
                 // allow Vaadin URLs without authentication
                 .regexMatchers("/frontend/.*", "/VAADIN/.*", "/login.*", "/accessDenied.*").permitAll().regexMatchers(HttpMethod.POST, "/\\?v-r=.*").permitAll()
                 // deny other URLs until authenticated
-                //.antMatchers("/**").fullyAuthenticated();
-                .antMatchers("/**").permitAll();
+                .antMatchers("/**").fullyAuthenticated();
+                //.antMatchers("/**").permitAll();
     }
 
     @Bean
@@ -54,7 +54,7 @@ public class SpringVaadinSecurity extends WebSecurityConfigurerAdapter {
 
             @Override
             public boolean isAccountNonExpired() {
-                return false;
+                return true;
             }
 
             @Override

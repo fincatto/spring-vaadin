@@ -29,28 +29,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("Home")
 @PWA(name = "Sistema Admin", shortName = "SysAdmin", enableInstallPrompt = false)
 public class TemplatePrincipalLayout extends AppLayout implements Loggable {
-    
+
     @Autowired
     public TemplatePrincipalLayout(final UserRepository userRepository) {
         getLogger().debug("Iniciando construcao do template...");
-    
+
         super.addToNavbar(new DrawerToggle());
         super.addToNavbar(new H4("Wmix Admin"));
-    
+
         //menu acordeon
         final Accordion accordion = new Accordion();
-    
+
         final AccordionPanel accordionPanelFornecedor = accordion.add("Diego Fincatto", new RouterLink("Home", HomePage.class));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario", FormularioPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario component", FormularioComponentePage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Grid", GridPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Cards", CardsPage.class)));
-        
+
         //accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
         //accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
         accordionPanelFornecedor.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-    
+
         final AccordionPanel accordionPanelBanco = accordion.add("Banco do Brasil", new RouterLink("Arquivos", ClientPage.class));
         accordionPanelBanco.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
         accordionPanelBanco.setVisible(VaadinService.getCurrentRequest().getWrappedSession().getAttribute("banco") != null);
@@ -61,7 +61,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
             VaadinService.getCurrentRequest().getWrappedSession().removeAttribute("banco");
             accordionPanelFornecedor.setOpened(true);
         })));
-    
+
         // Textual link
         final AccordionPanel accordionPanelSemBanco = accordion.add("Contas bancárias", new RouterLink("Banco do Brasil", ClientPage.class));
         accordionPanelSemBanco.addContent(new Div(new WMXLink("Exibir menu dos bancos", l -> {
@@ -74,43 +74,45 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         accordionPanelSemBanco.addContent(new Div(new RouterLink("CitiBank", ClientPage.class)));
         accordionPanelSemBanco.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
         accordionPanelSemBanco.setVisible(VaadinService.getCurrentRequest().getWrappedSession().getAttribute("banco") == null);
-    
+
         final AccordionPanel accordionPanelCliente = accordion.add("Clientes", new RouterLink("Notas", ClientPage.class));
         accordionPanelCliente.addContent(new Div(new RouterLink("Pedidos", ClientPage.class)));
         accordionPanelCliente.addContent(new Div(new RouterLink("Trocas", ClientPage.class)));
         accordionPanelCliente.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-    
+
         final AccordionPanel accordionPanelProdutos = accordion.add("Produtos", new RouterLink("Lancamentos", FornecedorPage.class));
         accordionPanelProdutos.addContent(new Div(new RouterLink("Catalogos", FornecedorPage.class)));
         accordionPanelProdutos.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-        
+
         final AccordionPanel disabledPannel = accordion.add("Clientes", new RouterLink("Home", HomePage.class));
         disabledPannel.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
         disabledPannel.setEnabled(false);
-    
+
+        //final User user = VaadinSession.getCurrent().getAttribute(User.class);
+
         final Div div = new Div(accordion);
         div.addClassName("menu");
         super.addToDrawer(div);
-    
+
         //menu
         final MenuBar menuBar = new MenuBar();
-    
+
         //busca
         //        final TextField tfBusca = new TextField(null, "Pesquisa de dados...");
         //        tfBusca.setWidth("100px");
         //        tfBusca.addFocusListener(textFieldFocusEvent -> tfBusca.setWidth("300px"));
         //        tfBusca.addBlurListener(textFieldFocusEvent -> tfBusca.setWidth("100px"));
         //        menuBar.addItem(tfBusca);
-        
+
         // Define menubar items
         final MenuItem menuItemFornecedor = menuBar.addItem("Diego Fincatto");
         //menuItemFornecedor.add(VaadinIcon.CARET_DOWN.create());
-    
+
         //project.add(VaadinIcon.USER.create(), new Span("Diego Fincatto"), VaadinIcon.ARROW_DOWN.create());
         //final MenuItem account = menuBar.addItem("Banco do Brasil");
         //account.getSubMenu().addItem("Edit Profile");
         //account.getSubMenu().addItem("Privacy Settings");
-    
+
         //final SubMenu projectSubMenu = menuItemFornecedor.getSubMenu();
         //final MenuItem users = projectSubMenu.addItem("Users");
         //final MenuItem billing = projectSubMenu.addItem("Billing");
@@ -123,7 +125,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         //final SubMenu billingSubMenu = billing.getSubMenu();
         //billingSubMenu.addItem("Invoices");
         //billingSubMenu.addItem("Balance Events");
-    
+
         //final HorizontalLayout horizontalLayout = new HorizontalLayout(menuBar);
         //horizontalLayout.setAlignItems(FlexComponent.Alignment.END);
         //horizontalLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
