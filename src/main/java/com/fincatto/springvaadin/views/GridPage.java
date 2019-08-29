@@ -30,8 +30,10 @@ import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 @PageTitle("Grid")
+@Secured({"ADMIN", "USER"})
 @Route(value = "grid", layout = TemplatePrincipalLayout.class)
 public class GridPage extends Composite<VerticalLayout> implements Loggable {
     
