@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class SecurityListener implements VaadinServiceInitListener {
@@ -53,13 +52,16 @@ public class SecurityListener implements VaadinServiceInitListener {
         }
 
         // lookup needed role in user roles
-        final List<String> allowedRoles = Arrays.asList(secured.value());
+        return isAccessGranted(secured.value());
+    }
+
+    public static boolean isAccessGranted(final String... roles) {
         return SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(allowedRoles::contains);
+                .anyMatch(Arrays.asList(roles)::contains);
     }
 
     private static boolean isUserLoggedIn() {

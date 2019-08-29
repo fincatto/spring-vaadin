@@ -1,6 +1,7 @@
 package com.fincatto.springvaadin.layouts;
 
 import com.fincatto.springvaadin.Loggable;
+import com.fincatto.springvaadin.SecurityListener;
 import com.fincatto.springvaadin.components.WMXLink;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.fincatto.springvaadin.views.*;
@@ -40,14 +41,12 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         //menu acordeon
         final Accordion accordion = new Accordion();
 
+        //so crio se o usuario tem a role
         final AccordionPanel accordionPanelFornecedor = accordion.add("Diego Fincatto", new RouterLink("Home", HomePage.class));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario", FormularioPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Formulario component", FormularioComponentePage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Grid", GridPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Cards", CardsPage.class)));
-
-        //accordionPanelFornecedor.addContent(new Div(new RouterLink("Pagamentos", ClientPage.class)));
-        //accordionPanelFornecedor.addContent(new Div(new RouterLink("Entradas", ClientPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
         accordionPanelFornecedor.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
 
@@ -63,17 +62,19 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         })));
 
         // Textual link
-        final AccordionPanel accordionPanelSemBanco = accordion.add("Contas bancárias", new RouterLink("Banco do Brasil", ClientPage.class));
-        accordionPanelSemBanco.addContent(new Div(new WMXLink("Exibir menu dos bancos", l -> {
-            new Notification("Bancos ativos!", 3000).open();
-            VaadinService.getCurrentRequest().getWrappedSession().setAttribute("banco", "DIEGO");
-            accordionPanelBanco.setOpened(true);
-            accordionPanelBanco.setVisible(true);
-        })));
-        accordionPanelSemBanco.addContent(new Div(new RouterLink("Caixa Economica", ClientPage.class)));
-        accordionPanelSemBanco.addContent(new Div(new RouterLink("CitiBank", ClientPage.class)));
-        accordionPanelSemBanco.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-        accordionPanelSemBanco.setVisible(VaadinService.getCurrentRequest().getWrappedSession().getAttribute("banco") == null);
+        if (SecurityListener.isAccessGranted("BANCO", "ADMIN")) {
+            final AccordionPanel accordionPanelSemBanco = accordion.add("Contas bancárias", new RouterLink("Banco do Brasil", ClientPage.class));
+            accordionPanelSemBanco.addContent(new Div(new WMXLink("Exibir menu dos bancos", l -> {
+                new Notification("Bancos ativos!", 3000).open();
+                VaadinService.getCurrentRequest().getWrappedSession().setAttribute("banco", "DIEGO");
+                accordionPanelBanco.setOpened(true);
+                accordionPanelBanco.setVisible(true);
+            })));
+            accordionPanelSemBanco.addContent(new Div(new RouterLink("Caixa Economica", ClientPage.class)));
+            accordionPanelSemBanco.addContent(new Div(new RouterLink("CitiBank", ClientPage.class)));
+            accordionPanelSemBanco.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
+            accordionPanelSemBanco.setVisible(VaadinService.getCurrentRequest().getWrappedSession().getAttribute("banco") == null);
+        }
 
         final AccordionPanel accordionPanelCliente = accordion.add("Clientes", new RouterLink("Notas", ClientPage.class));
         accordionPanelCliente.addContent(new Div(new RouterLink("Pedidos", ClientPage.class)));
@@ -87,8 +88,6 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         final AccordionPanel disabledPannel = accordion.add("Clientes", new RouterLink("Home", HomePage.class));
         disabledPannel.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
         disabledPannel.setEnabled(false);
-
-        //final User user = VaadinSession.getCurrent().getAttribute(User.class);
 
         final Div div = new Div(accordion);
         div.addClassName("menu");
