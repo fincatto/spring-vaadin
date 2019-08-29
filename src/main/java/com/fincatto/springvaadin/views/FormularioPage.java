@@ -1,24 +1,21 @@
 package com.fincatto.springvaadin.views;
 
+import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.components.WMXHeader;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
-import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @PageTitle("Form")
 @Route(value = "form", layout = TemplatePrincipalLayout.class)
-public class FormularioPage extends Composite<VerticalLayout> {
+public class FormularioPage extends WMXVerticalLayoutComposite {
     
     public FormularioPage() {
         final WMXHeader header = new WMXHeader("Formulário");
@@ -61,7 +58,7 @@ public class FormularioPage extends Composite<VerticalLayout> {
         final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
         
         this.getContent().setSizeFull();
-        this.getContent().setMargin(false);
+        //this.getContent().setMargin(false);
         //this.getContent().setSpacing(false);
         this.getContent().add(header, formLayout, horizontalLayout);
     }

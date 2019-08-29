@@ -7,13 +7,13 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("Home")
-@Route(value = "", layout = TemplatePrincipalLayout.class)
-public class HomePage extends WMXVerticalLayoutComposite {
+@PageTitle("I18n")
+@Route(value = "i18n", layout = TemplatePrincipalLayout.class)
+public class InternationalizationPage extends WMXVerticalLayoutComposite {
 
-    public HomePage() {
-        final WMXHeader header = new WMXHeader("Home");
-        final Label label = new Label("Bem-vindo ao sistema!");
+    public InternationalizationPage() {
+        final WMXHeader header = new WMXHeader("I18n");
+        final Label label = new Label("Tem que implementar isso aqui");
         this.getContent().add(header, label);
     }
 }

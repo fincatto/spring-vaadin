@@ -48,6 +48,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Grid", GridPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Cards", CardsPage.class)));
         accordionPanelFornecedor.addContent(new Div(new RouterLink("Sessao", SessionPage.class)));
+        accordionPanelFornecedor.addContent(new Div(new RouterLink("I18n", InternationalizationPage.class)));
         accordionPanelFornecedor.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
 
         final AccordionPanel accordionPanelBanco = accordion.add("Banco do Brasil", new RouterLink("Arquivos", ClientPage.class));

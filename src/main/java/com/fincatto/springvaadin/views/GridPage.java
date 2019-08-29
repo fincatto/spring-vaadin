@@ -3,10 +3,10 @@ package com.fincatto.springvaadin.views;
 import com.fincatto.springvaadin.Loggable;
 import com.fincatto.springvaadin.classes.Client;
 import com.fincatto.springvaadin.classes.Invoice;
+import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.components.WMXHeader;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.fincatto.springvaadin.repositories.ClientRepository;
-import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -35,8 +35,8 @@ import org.springframework.security.access.annotation.Secured;
 @PageTitle("Grid")
 @Secured({"ADMIN", "USER"})
 @Route(value = "grid", layout = TemplatePrincipalLayout.class)
-public class GridPage extends Composite<VerticalLayout> implements Loggable {
-    
+public class GridPage extends WMXVerticalLayoutComposite implements Loggable {
+
     @Autowired
     public GridPage(final ClientRepository clientRepository) {
         getLogger().debug("Construindo tela do cliente...");
@@ -66,20 +66,20 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         grid.getColumns().forEach(column -> column.setResizable(true));
         //grid.getHeaderRows().forEach(h-> h.getCells().forEach(c -> c.set));
         grid.addItemDoubleClickListener(l -> editarNota(l.getItem(), grid));
-        
+
         final Button adicionar = new Button("Adicionar");
         //adicionar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         //adicionar.addThemeVariants(ButtonVariant.LUMO_SMALL);
-        
+
         final Button cancelar = new Button("Cancelar");
         cancelar.addThemeVariants(ButtonVariant.LUMO_TERTIARY, ButtonVariant.LUMO_ERROR);
         //cancelar.addThemeVariants(ButtonVariant.LUMO_SMALL);
-        
+
         final HorizontalLayout horizontalLayoutAcoes = new HorizontalLayout();
         horizontalLayoutAcoes.setAlignItems(FlexComponent.Alignment.START);
         horizontalLayoutAcoes.add(cancelar, adicionar);
         horizontalLayoutAcoes.setMargin(false);
-        
+
         this.getContent().setSizeFull();
         this.getContent().setMargin(false);
         this.getContent().setSpacing(false);
@@ -87,45 +87,45 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
         final WMXHeader header = new WMXHeader("Grid");
         this.getContent().add(header, grid, horizontalLayoutAcoes);
     }
-    
+
     private void editarNota(Invoice invoice, Grid<Invoice> grid) {
         final Binder<Invoice> binder = new BeanValidationBinder<>(Invoice.class);
         //binder.setRequiredConfigurator(RequiredFieldConfigurator.NOT_EMPTY.chain(RequiredFieldConfigurator.NOT_NULL));
-        
+
         getLogger().debug("Editando invoice " + invoice.getNumero());
         final Dialog dialog = new Dialog();
-    
+
         final HorizontalLayout formHeader = new HorizontalLayout(new H4("Formulario"));
         formHeader.setWidthFull();
         formHeader.setMargin(false);
         formHeader.setSpacing(false);
-        
+
         final TextField tfCodigo = new TextField();
         tfCodigo.setLabel("Codigo");
         tfCodigo.setEnabled(false);
         binder.forField(tfCodigo).asRequired("Código necessario").withConverter(new StringToLongConverter("Codigo invalido")).bind(Invoice::getId, null);
-        
+
         final TextField tfNumero = new TextField();
         tfNumero.setLabel("Numero");
         tfNumero.setAutofocus(true);
         tfNumero.setRequired(true);
         binder.forField(tfNumero).asRequired("Numero necessario").withConverter(new StringToIntegerConverter("Numero invalido")).bind(Invoice::getNumero, Invoice::setNumero);
-        
+
         final TextField tfQuantidade = new TextField();
         tfQuantidade.setLabel("Quantidade");
         tfQuantidade.setRequired(true);
         binder.forField(tfQuantidade).asRequired("Quantidade necessaria").withConverter(new StringToBigDecimalConverter("Quantidade invalida")).bind(Invoice::getQuantidade, Invoice::setQuantidade);
-        
+
         final TextField tfValorUnitario = new TextField();
         tfValorUnitario.setLabel("Valor unitário");
         tfValorUnitario.setRequired(true);
         binder.forField(tfValorUnitario).asRequired("Valor unitário necessario").withConverter(new StringToBigDecimalConverter("Valor unitário inválido")).bind(Invoice::getValorUnitario, Invoice::setValorUnitario);
-        
+
         final FormLayout formLayout = new FormLayout();
         formLayout.add(tfCodigo, tfNumero, tfQuantidade, tfValorUnitario);
         formLayout.setResponsiveSteps(new FormLayout.ResponsiveStep("0", 1), new FormLayout.ResponsiveStep("600px", 2), new FormLayout.ResponsiveStep("1000px", 3), new FormLayout.ResponsiveStep("1400px", 4));
         binder.readBean(invoice);
-        
+
         final Button botaoSalvar = new Button("Salvar", b -> {
             if (binder.writeBeanIfValid(invoice)) {
                 grid.getDataProvider().refreshItem(invoice);
@@ -136,15 +136,15 @@ public class GridPage extends Composite<VerticalLayout> implements Loggable {
             }
         });
         botaoSalvar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        
+
         final Button botaoCancelar = new Button("Cancelar", b -> {
             binder.readBean(invoice);
             dialog.close();
         });
         botaoCancelar.addThemeVariants(ButtonVariant.LUMO_ERROR);
-        
+
         final HorizontalLayout horizontalLayout = new HorizontalLayout(botaoSalvar, botaoCancelar);
-        
+
         final VerticalLayout vlForm = new VerticalLayout(formHeader, new Hr(), formLayout, horizontalLayout);
         vlForm.setMaxWidth("800px");
         dialog.add(vlForm);

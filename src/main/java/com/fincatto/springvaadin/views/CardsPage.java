@@ -1,14 +1,13 @@
 package com.fincatto.springvaadin.views;
 
+import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.components.WMXHeader;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
-import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.security.access.annotation.Secured;
@@ -16,7 +15,7 @@ import org.springframework.security.access.annotation.Secured;
 @PageTitle("Cards")
 @Secured({"INEXISTENTE", "ADMIN"})
 @Route(value = "cards", layout = TemplatePrincipalLayout.class)
-public class CardsPage extends Composite<VerticalLayout> {
+public class CardsPage extends WMXVerticalLayoutComposite {
 
     public CardsPage() {
         final FlexLayout cardsLayout = new FlexLayout();
