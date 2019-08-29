@@ -11,8 +11,10 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.security.access.annotation.Secured;
 
 @PageTitle("Cards")
+@Secured({"INEXISTENTE", "ADMIN"})
 @Route(value = "cards", layout = TemplatePrincipalLayout.class)
 public class CardsPage extends Composite<VerticalLayout> {
 
