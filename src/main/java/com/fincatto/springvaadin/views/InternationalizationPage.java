@@ -1,7 +1,7 @@
 package com.fincatto.springvaadin.views;
 
-import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.components.WMXHeader;
+import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.router.PageTitle;
@@ -13,7 +13,7 @@ public class InternationalizationPage extends WMXVerticalLayoutComposite {
 
     public InternationalizationPage() {
         final WMXHeader header = new WMXHeader("I18n");
-        final Label label = new Label("Tem que implementar isso aqui");
+        final Label label = new Label(getBundle().getString("InternationalizationPage.texto"));
         this.getContent().add(header, label);
     }
 }
