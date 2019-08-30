@@ -7,12 +7,12 @@ import java.util.ResourceBundle;
 
 public class WMXVerticalLayoutComposite extends Composite<WMXVerticalLayout> implements Loggable {
 
-    private ResourceBundle bundle;
+    private ResourceBundle i18n;
 
-    protected ResourceBundle getBundle() {
-        if (this.bundle == null){
-            this.bundle = ResourceBundle.getBundle(String.format("i18n/%s", getClass().getSimpleName()), getLocale());
+    protected ResourceBundle getI18n() {
+        if (this.i18n == null){
+            this.i18n = ResourceBundle.getBundle(String.format("i18n/%s", getClass().getSimpleName()), getLocale());
         }
-        return this.bundle;
+        return this.i18n;
     }
 }

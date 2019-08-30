@@ -13,7 +13,7 @@ public class InternationalizationPage extends WMXVerticalLayoutComposite {
 
     public InternationalizationPage() {
         final WMXHeader header = new WMXHeader("I18n");
-        final Label label = new Label(getBundle().getString("InternationalizationPage.texto"));
+        final Label label = new Label(super.getI18n().getString("InternationalizationPage.texto"));
         this.getContent().add(header, label);
     }
 }
