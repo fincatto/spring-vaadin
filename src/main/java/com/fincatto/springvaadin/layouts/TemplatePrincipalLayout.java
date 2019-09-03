@@ -33,8 +33,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
 
     @Autowired
     public TemplatePrincipalLayout(final UserRepository userRepository) {
-        getLogger().debug("Iniciando construcao do template...");
-
+        //getLogger().debug("Iniciando construcao do template...");
         super.addToNavbar(new DrawerToggle());
         super.addToNavbar(new H4("Wmix Admin"));
 

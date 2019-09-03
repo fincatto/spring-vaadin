@@ -63,8 +63,8 @@ public class SecurityListener implements VaadinServiceInitListener {
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch(Arrays.asList(roles)::contains);
     }
-
-    private static boolean isUserLoggedIn() {
+    
+    public static boolean isUserLoggedIn() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null //nao pode ser nulo
                 && !(authentication instanceof AnonymousAuthenticationToken) //nao pode ser anonimo

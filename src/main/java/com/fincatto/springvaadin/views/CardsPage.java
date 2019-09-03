@@ -1,11 +1,10 @@
 package com.fincatto.springvaadin.views;
 
-import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
+import com.fincatto.springvaadin.classes.Produto;
 import com.fincatto.springvaadin.components.WMXHeader;
+import com.fincatto.springvaadin.components.WMXProdutoComponent;
+import com.fincatto.springvaadin.components.WMXVerticalLayoutComposite;
 import com.fincatto.springvaadin.layouts.TemplatePrincipalLayout;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -16,52 +15,21 @@ import org.springframework.security.access.annotation.Secured;
 @Secured({"INEXISTENTE", "ADMIN"})
 @Route(value = "cards", layout = TemplatePrincipalLayout.class)
 public class CardsPage extends WMXVerticalLayoutComposite {
-
+    
     public CardsPage() {
+        final WMXHeader header = new WMXHeader("Cards");
+        
         final FlexLayout cardsLayout = new FlexLayout();
-        //cardsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.EVENLY);
         cardsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.START);
         cardsLayout.setAlignItems(FlexComponent.Alignment.START);
         cardsLayout.setWrapMode(FlexLayout.WrapMode.WRAP);
         cardsLayout.setWidthFull();
-
-        for (int i = 0; i < 100; i++) {
-            Div div = new Div();
-            div.add(new Image("https://capas-c.ewmix.com/15563.jpg", "Capa do produto"));
-
-            final Div produtoTitulo = new Div(new Label("Produto Tal"));
-            produtoTitulo.addClassName("bold");
-            div.add(produtoTitulo);
-
-            final Div produtoSubtitulo = new Div(new Label("Desrição detalhada do prod"));
-            div.add(produtoSubtitulo);
-
-            //div.add(new Hr());
-            //final NumberField numberField = new NumberField();
-            //            final Icon iconeRemover = VaadinIcon.MINUS.create();
-            //            iconeRemover.addClickListener(cl -> {
-            //                numberField.setValue(numberField.getValue() != null && numberField.getValue() > 0 ? numberField.getValue() - 1 : 0);
-            //            });
-            //            numberField.setPrefixComponent(iconeRemover);
-            //
-            //            final Icon iconeAdicionar = VaadinIcon.PLUS.create();
-            //            iconeAdicionar.addClickListener(cl -> {
-            //                numberField.setValue(numberField.getValue() != null ? numberField.getValue() + 1 : 1);
-            //            });
-            //            numberField.setSuffixComponent(iconeAdicionar);
-            //            div.add(numberField);
-
-            //            final Button botaoComprar = new Button("Comprar agora");
-            //            botaoComprar.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SMALL);
-            //            div.add(botaoComprar);
-            //            final Button botaoCarrinho = new Button("Adicionar ao carrinho");
-            //            botaoCarrinho.addThemeVariants(ButtonVariant.LUMO_SMALL);
-            //            div.add(botaoCarrinho);
-            cardsLayout.add(div);
+        
+        for (int i = 1; i < 100; i++) {
+            final Produto produto = new Produto().setId((long) i).setTitulo(String.format("Produto %s", i)).setDescricao(String.format("Descrição detalhada %s", i)).setUrlCapa("https://capas-c.ewmix.com/15563.jpg");
+            cardsLayout.add(new WMXProdutoComponent(produto));
         }
-
-        final WMXHeader header = new WMXHeader("Cards");
-
+        
         this.getContent().add(header, cardsLayout);
         this.getContent().setMargin(false);
         this.getContent().setSizeFull();
