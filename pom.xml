@@ -67,6 +67,9 @@
     <profiles>
         <profile>
             <id>producao</id>
+            <properties>
+                <vaadin.productionMode>true</vaadin.productionMode>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.vaadin</groupId>
@@ -82,8 +85,8 @@
                         <executions>
                             <execution>
                                 <goals>
-                                    <goal>copy-production-files</goal>
-                                    <goal>package-for-production</goal>
+                                    <goal>prepare-frontend</goal>
+                                    <goal>build-frontend</goal>
                                 </goals>
                             </execution>
                         </executions>
