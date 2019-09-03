@@ -18,7 +18,7 @@ import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
-public class SpringVaadinSecurity extends WebSecurityConfigurerAdapter {
+public class SpringVaadinSecurityAdapter extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http

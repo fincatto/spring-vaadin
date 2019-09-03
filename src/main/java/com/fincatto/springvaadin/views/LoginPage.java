@@ -1,7 +1,7 @@
 package com.fincatto.springvaadin.views;
 
 import com.fincatto.springvaadin.Loggable;
-import com.fincatto.springvaadin.SecurityListener;
+import com.fincatto.springvaadin.SpringVaadinSecurityListener;
 import com.fincatto.springvaadin.layouts.TemplateSimplesLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.login.LoginForm;
@@ -88,7 +88,7 @@ public class LoginPage extends Div implements RouterLayout, BeforeEnterObserver,
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities()));
                 final Set<String> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toUnmodifiableSet());
                 getLogger().warn("{}: {}", userDetails.getUsername(), roles.toString());
-                return SecurityListener.isUserLoggedIn();
+                return SpringVaadinSecurityListener.isUserLoggedIn();
             } else {
                 getLogger().warn("Usuario inexistente para email '{}'!", email);
                 return false;
@@ -99,7 +99,7 @@ public class LoginPage extends Div implements RouterLayout, BeforeEnterObserver,
     
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if (SecurityListener.isUserLoggedIn()) {
+        if (SpringVaadinSecurityListener.isUserLoggedIn()) {
             beforeEnterEvent.forwardTo(HomePage.class);
         }
     }

@@ -4,7 +4,7 @@ import com.vaadin.flow.server.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SessionListener extends VaadinServlet implements VaadinServiceInitListener, SessionInitListener, SessionDestroyListener, Loggable {
+public class SpringVaadinSessionListener extends VaadinServlet implements VaadinServiceInitListener, SessionInitListener, SessionDestroyListener, Loggable {
     
     @Override
     public void serviceInit(final ServiceInitEvent serviceInitEvent) {

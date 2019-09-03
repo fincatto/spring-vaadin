@@ -1,7 +1,7 @@
 package com.fincatto.springvaadin.layouts;
 
 import com.fincatto.springvaadin.Loggable;
-import com.fincatto.springvaadin.SecurityListener;
+import com.fincatto.springvaadin.SpringVaadinSecurityListener;
 import com.fincatto.springvaadin.components.WMXLink;
 import com.fincatto.springvaadin.repositories.UserRepository;
 import com.fincatto.springvaadin.views.*;
@@ -62,7 +62,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
         })));
 
         // Textual link
-        if (SecurityListener.isAccessGranted("BANCO", "ADMIN")) {
+        if (SpringVaadinSecurityListener.isAccessGranted("BANCO", "ADMIN")) {
             final AccordionPanel accordionPanelSemBanco = accordion.add("Contas bancárias", new RouterLink("Banco do Brasil", ClientPage.class));
             accordionPanelSemBanco.addContent(new Div(new WMXLink("Exibir menu dos bancos", l -> {
                 new Notification("Bancos ativos!", 3000).open();

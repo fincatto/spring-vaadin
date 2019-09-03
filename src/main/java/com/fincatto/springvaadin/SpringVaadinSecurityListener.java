@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
 @Component
-public class SecurityListener implements VaadinServiceInitListener {
+public class SpringVaadinSecurityListener implements VaadinServiceInitListener {
 
     @Override
     public void serviceInit(final ServiceInitEvent event) {
