@@ -13,8 +13,8 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
-        <vaadin.version>14.0.2</vaadin.version>
+        <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+        <vaadin.version>14.0.7</vaadin.version>
     </properties>
 
     <dependencies>
