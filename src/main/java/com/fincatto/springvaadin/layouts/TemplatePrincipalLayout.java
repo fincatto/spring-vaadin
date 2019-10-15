@@ -88,7 +88,7 @@ public class TemplatePrincipalLayout extends AppLayout implements Loggable {
 
         final AccordionPanel disabledPannel = accordion.add("Clientes", new RouterLink("Home", HomePage.class));
         disabledPannel.addThemeVariants(DetailsVariant.REVERSE, DetailsVariant.FILLED, DetailsVariant.SMALL);
-        disabledPannel.setEnabled(false);
+        //disabledPannel.setEnabled(false);
 
         final Div div = new Div(accordion);
         div.addClassName("menu");
